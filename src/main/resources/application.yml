@@ -1,0 +1,71 @@
+# for multiple eureka servers start three time this app with differents active profiles:
+#   -Dspring.profiles.active=primary
+#   -Dspring.profiles.active=secondary
+#   -Dspring.profiles.active=tertiary
+
+# add in the /etc/hosts or c:\WINDOWS\system32\drivers\etc\hosts the lines (uncommented) below:
+#127.0.0.1       eureka-primary
+#127.0.0.1       eureka-secondary
+#127.0.0.1       eureka-tertiary
+
+---
+spring:
+  profiles: primary
+  
+server:
+  port: 8011
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-secondary:8012/eureka/,http://eureka-tertiary:8013/eureka/
+      
+---
+spring:
+  profiles: secondary
+  
+server:
+  port: 8012
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-primary:8011/eureka/,http://eureka-tertiary:8013/eureka/
+      
+---
+spring:
+  profiles: tertiary
+  
+server:
+  port: 8013
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eureka-primary:8011/eureka/,http://eureka-secondary:8012/eureka/
+      
+---
+# for a single eureka server 
+#server:
+#  port: 8010
+
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    registerWithEureka: false
+#    fetchRegistry: false
+#    serviceUrl:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
