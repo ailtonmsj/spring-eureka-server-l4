@@ -62,12 +62,8 @@ server:
   port: 8010
 
 eureka:
-## default configuration
-#  instance:
-#    hostname: localhost
-     # Allow Eureka to recognize two apps of the same type on the same host as separate instances:
   instance:
-    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+    hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
