@@ -7,5 +7,13 @@
 
 ### Change the application.yml removing the uncommented contend and uncommenting the last lines from the file (server.port and the eureka... configuration)
 
+## To open the dashboard use:
+#### single instance:  
+localhost:8010
+  
+#### The cluster above:  
+localhost:8011  
+localhost:8012  
+localhost:8013  
 
 
